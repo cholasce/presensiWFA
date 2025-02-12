@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe dengan Spinner</title>
+    <style>
+        .responsive-iframe-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* Rasio aspek 4:3 untuk desktop */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .responsive-iframe-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Media query untuk tampilan mobile */
+        @media only screen and (max-width: 600px) {
+            .responsive-iframe-wrapper {
+                padding-bottom: 177.78%; /* Rasio aspek 9:16 untuk tampilan ponsel vertikal */
+            }
+        }
+
+        /* Container untuk spinner dan teks */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            z-index: 999;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .text {
+            margin-top: 15px;
+            font-size: 18px;
+            color: #333;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Spinner dan teks dalam container -->
+    <div class="loading-container" id="loading-container">
+        <div class="spinner"></div>
+        <div class="text">Mohon tunggu...</div>
+    </div>
+
+    <!-- Container iframe -->
+    <div class="responsive-iframe-wrapper">
+        <iframe id="myIframe" src="https://script.google.com/macros/s/AKfycbx0fTfsWbbmi9a_kp4vx0tVzDWkao87EuOk52RFobud_VULkt4UDER_5HneRYNgFPx-/exec"></iframe>
+    </div>
+
+    <script>
+        document.getElementById('myIframe').onload = function() {
+            document.getElementById('loading-container').style.display = 'none';
+        };
+    </script>
+
+</body>
+</html>
